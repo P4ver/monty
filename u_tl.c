@@ -53,8 +53,8 @@ void find_func(char *opcode, char *value, int ln, int format)
 		{"pall", print_stack},
 		{"pint", print_top},
 		{"pop", pop_top},
-		{"nop", nop},
-		{"swap", swap_nodes},
+		/*{"nop", nop},
+		{"swap", swap_nodes},*/
 		{NULL, NULL}
 	};
 
@@ -72,6 +72,7 @@ void find_func(char *opcode, char *value, int ln, int format)
 	if (flag == 1)
 		err(3, ln, opcode);
 }
+
 void call_fun(op_func func, char *op, char *val, int ln, int format)
 {
 	stack_t *node;
