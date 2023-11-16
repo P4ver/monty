@@ -5,7 +5,7 @@ stack_t *head = NULL;
  * @q: integer,
  * Return: return node,
  */
-stack_t *swb_nd(int q)
+stack_t *swb_nd(int n)
 {
 	stack_t *node;
 
