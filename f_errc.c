@@ -1,12 +1,16 @@
 #include "monty.h"
-void err_c(int error_code, ...)
+/**
+ * err_c - funct will show err msg,
+ * @cd_err: variable show err code,
+ */
+void err_c(int cd_err, ...)
 {
 	va_list ag;
 	char *op;
 	int l_num;
 
-	va_start(ag, error_code);
-	switch (error_code)
+	va_start(ag, cd_err);
+	switch (cd_err)
 	{
 		case 1:
 			fprintf(stderr, "USAGE: monty file\n");
@@ -32,14 +36,18 @@ void err_c(int error_code, ...)
 	lbr_nd();
 	exit(EXIT_FAILURE);
 }
-void err_ktr(int error_code, ...)
+/**
+ * err_ktr - function that treats the err,
+ * @cd_err: variable show err code,
+ */
+void err_ktr(int cd_err, ...)
 {
 	va_list ag;
 	char *op;
 	int l_num;
 
-	va_start(ag, error_code);
-	switch (error_code)
+	va_start(ag, cd_err);
+	switch (cd_err)
 	{
 		case 6:
 			fprintf(stderr, "L%d: can't pint, stack empty\n",
