@@ -41,28 +41,31 @@ typedef struct instruction_s
 extern stack_t *head;
 typedef void (*op_func)(stack_t **, unsigned int);
 
-void open_file(char *file_name);
-int parse_line(char *buffer, int line_number, int format);
-void read_file(FILE *);
-int len_chars(FILE *);
-void find_func(char *, char *, int, int);
-
-stack_t *create_node(int n);
-void free_nodes(void);
-void print_stack(stack_t **, unsigned int);
-void add_to_stack(stack_t **, unsigned int);
-void add_to_queue(stack_t **, unsigned int);
+void fth_fl(char *file_name);
+int ana_ln(char *buffer, int line_number, int format);
+void lr_fl(FILE *);
 /*
-void call_fun(op_func, char *, char *, int, int);
+int len_chars(FILE *);
 */
-void call_fun(op_func func, char *op, char *val, int ln, int format);
+void trv_fct(char *, char *, int, int);
 
-void print_top(stack_t **, unsigned int);
-void pop_top(stack_t **, unsigned int);
+stack_t *swb_nd(int n);
+void lbr_nd(void);
+void aff_stck(stack_t **, unsigned int);
+void zidl_stck(stack_t **, unsigned int);
+void zid_queue(stack_t **, unsigned int);
+
+void apl_fct(op_func func, char *op, char *val, int ln, int format);
+
+void foq_aff(stack_t **, unsigned int);
+void foq_pp(stack_t **, unsigned int);
+/*
 void nop(stack_t **, unsigned int);
 void swap_nodes(stack_t **, unsigned int);
-
-void err(int error_code, ...);
-void more_err(int error_code, ...);
+*/
+void err_c(int error_code, ...);
+void err_ktr(int error_code, ...);
+/*
 void string_err(int error_code, ...);
+*/
 #endif

@@ -1,5 +1,5 @@
 #include "monty.h"
-void err(int error_code, ...)
+void err_c(int error_code, ...)
 {
 	va_list ag;
 	char *op;
@@ -29,10 +29,10 @@ void err(int error_code, ...)
 		default:
 			break;
 	}
-	free_nodes();
+	lbr_nd();
 	exit(EXIT_FAILURE);
 }
-void more_err(int error_code, ...)
+void err_ktr(int error_code, ...)
 {
 	va_list ag;
 	char *op;
@@ -61,6 +61,6 @@ void more_err(int error_code, ...)
 		default:
 			break;
 	}
-	free_nodes();
+	lbr_nd();
 	exit(EXIT_FAILURE);
 }

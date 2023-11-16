@@ -1,15 +1,15 @@
 #include "monty.h"
-void open_file(char *file_name)
+void fth_fl(char *file_name)
 {
 	FILE *fd = fopen(file_name, "r");
 
 	if (file_name == NULL || fd == NULL)
-		err(2, file_name);
+		err_c(2, file_name);
 
-	read_file(fd);
+	lr_fl(fd);
 	fclose(fd);
 }
-void read_file(FILE *fd)
+void lr_fl(FILE *fd)
 {
 	int line_number, format = 0;
 	char *buffer = NULL;
@@ -17,17 +17,17 @@ void read_file(FILE *fd)
 
 	for (line_number = 1; getline(&buffer, &len, fd) != -1; line_number++)
 	{
-		format = parse_line(buffer, line_number, format);
+		format = ana_ln(buffer, line_number, format);
 	}
 	free(buffer);
 }
-int parse_line(char *buffer, int line_number, int format)
+int ana_ln(char *buffer, int line_number, int format)
 {
 	char *opcode, *value;
 	const char *delim = "\n ";
 
 	if (buffer == NULL)
-		err(4);
+		err_c(4);
 
 	opcode = strtok(buffer, delim);
 	if (opcode == NULL)
@@ -39,20 +39,20 @@ int parse_line(char *buffer, int line_number, int format)
 	if (strcmp(opcode, "queue") == 0)
 		return (1);
 
-	find_func(opcode, value, line_number, format);
+	trv_fct(opcode, value, line_number, format);
 	return (format);
 }
 
-void find_func(char *opcode, char *value, int ln, int format)
+void trv_fct(char *opcode, char *value, int ln, int format)
 {
 	int i;
 	int flag;
 
 	instruction_t func_list[] = {
-		{"push", add_to_stack},
-		{"pall", print_stack},
-		{"pint", print_top},
-		{"pop", pop_top},
+		{"push", zidl_stck},
+		{"pall", aff_stck},
+		{"pint", foq_aff},
+		{"pop", foq_pp},
 		/*{"nop", nop},
 		{"swap", swap_nodes},*/
 		{NULL, NULL}
@@ -65,15 +65,15 @@ void find_func(char *opcode, char *value, int ln, int format)
 	{
 		if (strcmp(opcode, func_list[i].opcode) == 0)
 		{
-			call_fun(func_list[i].f, opcode, value, ln, format);
+			apl_fct(func_list[i].f, opcode, value, ln, format);
 			flag = 0;
 		}
 	}
 	if (flag == 1)
-		err(3, ln, opcode);
+		err_c(3, ln, opcode);
 }
 
-void call_fun(op_func func, char *op, char *val, int ln, int format)
+void apl_fct(op_func func, char *op, char *val, int ln, int format)
 {
 	stack_t *node;
 	int flag;
@@ -88,17 +88,17 @@ void call_fun(op_func func, char *op, char *val, int ln, int format)
 			flag = -1;
 		}
 		if (val == NULL)
-			err(5, ln);
+			err_c(5, ln);
 		for (i = 0; val[i] != '\0'; i++)
 		{
 			if (isdigit(val[i]) == 0)
-				err(5, ln);
+				err_c(5, ln);
 		}
-		node = create_node(atoi(val) * flag);
+		node = swb_nd(atoi(val) * flag);
 		if (format == 0)
 			func(&node, ln);
 		if (format == 1)
-			add_to_queue(&node, ln);
+			zid_queue(&node, ln);
 	}
 	else
 		func(&head, ln);

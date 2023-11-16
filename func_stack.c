@@ -1,5 +1,5 @@
 #include "monty.h"
-void add_to_stack(stack_t **new_node, __attribute__((unused))unsigned int ln)
+void zidl_stck(stack_t **new_node, __attribute__((unused))unsigned int ln)
 {
 	stack_t *tmp;
 
@@ -15,7 +15,7 @@ void add_to_stack(stack_t **new_node, __attribute__((unused))unsigned int ln)
 	head->next = tmp;
 	tmp->prev = head;
 }
-void print_stack(stack_t **stack, unsigned int line_number)
+void aff_stck(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp;
 
@@ -29,12 +29,12 @@ void print_stack(stack_t **stack, unsigned int line_number)
 		tmp = tmp->next;
 	}
 }
-void pop_top(stack_t **stack, unsigned int line_number)
+void foq_pp(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp;
 
 	if (stack == NULL || *stack == NULL)
-		more_err(7, line_number);
+		err_ktr(7, line_number);
 
 	tmp = *stack;
 	*stack = tmp->next;
@@ -42,9 +42,9 @@ void pop_top(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = NULL;
 	free(tmp);
 }
-void print_top(stack_t **stack, unsigned int line_number)
+void foq_aff(stack_t **stack, unsigned int line_number)
 {
 	if (stack == NULL || *stack == NULL)
-		more_err(6, line_number);
+		err_ktr(6, line_number);
 	printf("%d\n", (*stack)->n);
 }
