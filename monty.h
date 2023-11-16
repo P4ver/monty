@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdarg.h>
-
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -24,7 +23,6 @@ typedef struct stack_s
         struct stack_s *prev;
         struct stack_s *next;
 } stack_t;
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -45,9 +43,7 @@ typedef void (*op_func)(stack_t **, unsigned int);
 void fth_fl(char *file_name);
 int ana_ln(char *buffer, int line_number, int format);
 void lr_fl(FILE *);
-/*
-int len_chars(FILE *);
-*/
+
 void trv_fct(char *, char *, int, int);
 
 stack_t *swb_nd(int n);
@@ -60,13 +56,11 @@ void apl_fct(op_func func, char *op, char *val, int ln, int format);
 
 void foq_aff(stack_t **, unsigned int);
 void foq_pp(stack_t **, unsigned int);
+void np_d(stack_t **, unsigned int);
 /*
-void nop(stack_t **, unsigned int);
 void swap_nodes(stack_t **, unsigned int);
 */
 void err_c(int error_code, ...);
 void err_ktr(int error_code, ...);
-/*
-void string_err(int error_code, ...);
-*/
+
 #endif

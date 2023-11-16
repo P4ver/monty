@@ -2,7 +2,7 @@
 stack_t *head = NULL;
 /**
  * swb_nd - funct that creats a node,
- * @q: integer,
+ * @n: integer,
  * Return: return node,
  */
 stack_t *swb_nd(int n)

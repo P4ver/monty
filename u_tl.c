@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
  * fth_fl - funct that opens files,
- * flnm - var of file name,
+ * @flnm:var of file name,
  */
 void fth_fl(char *flnm)
 {
@@ -74,8 +74,7 @@ void trv_fct(char *opcode, char *argop, int k, int jrm)
 		{"pall", aff_stck},
 		{"pint", foq_aff},
 		{"pop", foq_pp},
-		/*{"nop", nop},
-		{"swap", swap_nodes},*/
+		{"nop", np_d},
 		{NULL, NULL}
 	};
 
