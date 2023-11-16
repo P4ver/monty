@@ -1,37 +1,52 @@
 #include "monty.h"
-void fth_fl(char *file_name)
+/**
+ * fth_fl - funct that opens files,
+ * flnm - var of file name,
+ */
+void fth_fl(char *flnm)
 {
-	FILE *fd = fopen(file_name, "r");
+	FILE *pf = fopen(flnm, "r");
 
-	if (file_name == NULL || fd == NULL)
-		err_c(2, file_name);
+	if (flnm == NULL || pf == NULL)
+		err_c(2, flnm);
 
-	lr_fl(fd);
-	fclose(fd);
+	lr_fl(pf);
+	fclose(pf);
 }
-void lr_fl(FILE *fd)
+/**
+ * lr_fl - funct that read file,
+ * @pf: pntr to file,
+ */
+void lr_fl(FILE *pf)
 {
 	int line_number, format = 0;
 	char *buffer = NULL;
 	size_t len = 0;
 
-	for (line_number = 1; getline(&buffer, &len, fd) != -1; line_number++)
+	for (line_number = 1; getline(&buffer, &len, pf) != -1; line_number++)
 	{
 		format = ana_ln(buffer, line_number, format);
 	}
 	free(buffer);
 }
-int ana_ln(char *buffer, int line_number, int format)
+/**
+ * ana_ln - turn line to token,
+ * @bfr: pointer,
+ * @k: integer,
+ * @jrm: enter as a stask if is null,
+ * Return: 0 or 1,
+ */
+int ana_ln(char *bfr, int k, int jrm)
 {
 	char *opcode, *value;
 	const char *delim = "\n ";
 
-	if (buffer == NULL)
+	if (bfr == NULL)
 		err_c(4);
 
-	opcode = strtok(buffer, delim);
+	opcode = strtok(bfr, delim);
 	if (opcode == NULL)
-		return (format);
+		return (jrm);
 	value = strtok(NULL, delim);
 
 	if (strcmp(opcode, "stack") == 0)
@@ -39,11 +54,17 @@ int ana_ln(char *buffer, int line_number, int format)
 	if (strcmp(opcode, "queue") == 0)
 		return (1);
 
-	trv_fct(opcode, value, line_number, format);
-	return (format);
+	trv_fct(opcode, value, k, jrm);
+	return (jrm);
 }
-
-void trv_fct(char *opcode, char *value, int ln, int format)
+/**
+ * trv_fct - find funct for opcode,
+ * @opcode: opcode,
+ * @argop: opc argument,
+ * @k: integer,
+ * @jrm: enter as a stack if node is null,
+ */
+void trv_fct(char *opcode, char *argop, int k, int jrm)
 {
 	int i;
 	int flag;
@@ -65,41 +86,48 @@ void trv_fct(char *opcode, char *value, int ln, int format)
 	{
 		if (strcmp(opcode, func_list[i].opcode) == 0)
 		{
-			apl_fct(func_list[i].f, opcode, value, ln, format);
+			apl_fct(func_list[i].f, opcode, argop, k, jrm);
 			flag = 0;
 		}
 	}
 	if (flag == 1)
-		err_c(3, ln, opcode);
+		err_c(3, k, opcode);
 }
-
-void apl_fct(op_func func, char *op, char *val, int ln, int format)
+/**
+ * apl_fct - funct that calls required func,
+ * @fct: pntr,
+ * @opc: var string,
+ * @nmvl: strinf value,
+ * @k: integer,
+ * @jrm: enter as stack if node is null,
+ */
+void apl_fct(op_func fct, char *opc, char *nmvl, int k, int jrm)
 {
 	stack_t *node;
-	int flag;
-	int i;
+	int flg;
+	int q;
 
-	flag = 1;
-	if (strcmp(op, "push") == 0)
+	flg = 1;
+	if (strcmp(opc, "push") == 0)
 	{
-		if (val != NULL && val[0] == '-')
+		if (nmvl != NULL && nmvl[0] == '-')
 		{
-			val = val + 1;
-			flag = -1;
+			nmvl = nmvl + 1;
+			flg = -1;
 		}
-		if (val == NULL)
-			err_c(5, ln);
-		for (i = 0; val[i] != '\0'; i++)
+		if (nmvl == NULL)
+			err_c(5, k);
+		for (q = 0; nmvl[q] != '\0'; q++)
 		{
-			if (isdigit(val[i]) == 0)
-				err_c(5, ln);
+			if (isdigit(nmvl[q]) == 0)
+				err_c(5, k);
 		}
-		node = swb_nd(atoi(val) * flag);
-		if (format == 0)
-			func(&node, ln);
-		if (format == 1)
-			zid_queue(&node, ln);
+		node = swb_nd(atoi(nmvl) * flg);
+		if (jrm == 0)
+			fct(&node, k);
+		if (jrm == 1)
+			zid_queue(&node, k);
 	}
 	else
-		func(&head, ln);
+		fct(&head, k);
 }

@@ -1,50 +1,70 @@
 #include "monty.h"
-void zidl_stck(stack_t **new_node, __attribute__((unused))unsigned int ln)
+/**
+ * zidl_stck - funct that adds node,
+ * @nwnd: pntr to pntr,
+ * @k: integer,
+ */
+void zidl_stck(stack_t **nwnd, __attribute__((unused))unsigned int k)
 {
 	stack_t *tmp;
 
-	if (new_node == NULL || *new_node == NULL)
+	if (nwnd == NULL || *nwnd == NULL)
 		exit(EXIT_FAILURE);
 	if (head == NULL)
 	{
-		head = *new_node;
+		head = *nwnd;
 		return;
 	}
 	tmp = head;
-	head = *new_node;
+	head = *nwnd;
 	head->next = tmp;
 	tmp->prev = head;
 }
-void aff_stck(stack_t **stack, unsigned int line_number)
+/**
+ * aff_stck - funct that add node,
+ * @stck: pntr to pntr,
+ * @k: integer num opcode,
+ */
+void aff_stck(stack_t **stck, unsigned int k)
 {
 	stack_t *tmp;
 
-	(void) line_number;
-	if (stack == NULL)
+	(void) k;
+	if (stck == NULL)
 		exit(EXIT_FAILURE);
-	tmp = *stack;
+	tmp = *stck;
 	while (tmp != NULL)
 	{
 		printf("%d\n", tmp->n);
 		tmp = tmp->next;
 	}
 }
-void foq_pp(stack_t **stack, unsigned int line_number)
+/**
+ * foq_pp - funcitn that add node,
+ * @stck: pntr to pntr,
+ * @k: integer num opcode,
+ */
+void foq_pp(stack_t **stck, unsigned int k)
 {
 	stack_t *tmp;
 
-	if (stack == NULL || *stack == NULL)
-		err_ktr(7, line_number);
+	if (stck == NULL || *stck == NULL)
+		err_ktr(7, k);
 
-	tmp = *stack;
-	*stack = tmp->next;
-	if (*stack != NULL)
-		(*stack)->prev = NULL;
+	tmp = *stck;
+	*stck = tmp->next;
+	if (*stck != NULL)
+		(*stck)->prev = NULL;
 	free(tmp);
 }
-void foq_aff(stack_t **stack, unsigned int line_number)
+/**
+ * foq_aff - functin that add node,
+ * @stck: pntr to pntr,
+ * @k: integer num opcode,
+ */
+void foq_aff(stack_t **stck, unsigned int k)
 {
-	if (stack == NULL || *stack == NULL)
-		err_ktr(6, line_number);
-	printf("%d\n", (*stack)->n);
+	if (stck == NULL || *stck == NULL)
+		err_ktr(6, k);
+	printf("%d\n", (*stck)->n);
 }
